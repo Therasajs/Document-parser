@@ -1,0 +1,75 @@
+﻿# Build directories
+target/
+build/
+dist/
+out/
+
+# Node
+node_modules/
+package-lock.json
+npm-debug.log*
+yarn.lock
+
+# IDE & Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+*.h2.db
+
+# Environment files
+.env
+.env.local
+.env.*.local
+.env*.txt
+
+# Logs
+logs/
+*.log
+log.txt
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Maven
+*.jar
+*.war
+*.ear
+*.class
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+.gradle
+build/
+
+# Spring Boot
+application-*.yml
+application-*.properties
+
+# Java
+.factorypath
+
+# Misc
+.cache
+.tmp
+.#*
+*~
