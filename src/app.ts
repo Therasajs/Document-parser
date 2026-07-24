@@ -19,10 +19,21 @@ app.use(cors({ origin: process.env.CORS_ORIGIN || '*' }));
 // Static files
 app.use(express.static('public'));
 
+// Validate admin credentials are set
+const adminUsername = process.env.ADMIN_USERNAME;
+const adminPassword = process.env.ADMIN_PASSWORD;
+
+if (!adminUsername || !adminPassword) {
+  console.error(
+    'FATAL: ADMIN_USERNAME and ADMIN_PASSWORD environment variables must be set.'
+  );
+  process.exit(1);
+}
+
 // Basic Auth Middleware (for admin operations)
 const adminAuth = basicAuth({
   users: {
-    [process.env.ADMIN_USERNAME || 'admin']: process.env.ADMIN_PASSWORD || 'SecurePass123!'
+    [adminUsername]: adminPassword
   },
   challenge: true,
   realm: 'Document Import Engine'

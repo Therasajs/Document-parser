@@ -4,10 +4,21 @@ import { QuestionService } from '../services/questionService';
 
 const router = express.Router();
 
+// Validate admin credentials are set
+const adminUsername = process.env.ADMIN_USERNAME;
+const adminPassword = process.env.ADMIN_PASSWORD;
+
+if (!adminUsername || !adminPassword) {
+  throw new Error(
+    'FATAL: ADMIN_USERNAME and ADMIN_PASSWORD environment variables must be set. ' +
+    'Please configure these in your .env file before starting the application.'
+  );
+}
+
 // Admin auth middleware
 const adminAuth = basicAuth({
   users: {
-    [process.env.ADMIN_USERNAME || 'admin']: process.env.ADMIN_PASSWORD || 'SecurePass123!'
+    [adminUsername]: adminPassword
   },
   challenge: true,
   realm: 'Document Import Engine'
