@@ -326,6 +326,27 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+
+    .btn-delete {
+      background: var(--error);
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .btn-delete:hover {
+      background: #dc2626;
+      box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+    }
+
+    .btn-delete:active {
+      transform: translateY(1px);
+    }
   </style>
 </head>
 <body>
@@ -510,6 +531,7 @@
             <th>Difficulty</th>
             <th>Answer</th>
             <th>Options</th>
+            <th>Action</th>
           </tr></thead><tbody>`;
 
           data.data.forEach(q => {
@@ -520,6 +542,7 @@
               <td><span class="badge badge-difficulty">${escapeHtml(q.difficulty || 'N/A')}</span></td>
               <td><strong>${escapeHtml(q.correct_answer || '-')}</strong></td>
               <td>${escapeHtml(q.option_a || '')} | ${escapeHtml(q.option_b || '')} | ${escapeHtml(q.option_c || '')} | ${escapeHtml(q.option_d || '')}</td>
+              <td><button class="btn-delete" onclick="deleteQuestion(${q.id})">Delete</button></td>
             </tr>`;
           });
 
@@ -548,6 +571,33 @@
       currentPage = page;
       loadQuestions();
       document.querySelector('.table-container').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    async function deleteQuestion(id) {
+      if (!confirm(`Delete question #${id}?`)) {
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/questions/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': 'Basic ' + btoa('admin:SecurePass123!')
+          }
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          alert('Question deleted successfully!');
+          loadQuestions();
+          loadStats();
+        } else {
+          alert('Error: ' + (data.error || 'Failed to delete'));
+        }
+      } catch (error) {
+        alert('Error: ' + error.message);
+      }
     }
   </script>
 </body>

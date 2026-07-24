@@ -1,0 +1,89 @@
+1. What is the capital of France?
+A. Lyon
+B. Paris
+C. Marseille
+D. Nice
+Answer: B
+Domain: Geography
+Difficulty: Easy
+
+2. What is 2 + 2?
+A. 3
+B. 4
+C. 5
+D. 6
+Answer: B
+Domain: Mathematics
+Difficulty: Easy
+
+3. Which planet is known as the Red Planet?
+A. Venus
+B. Mars
+C. Jupiter
+D. Saturn
+Answer: B
+Domain: Science
+Difficulty: Easy
+
+4. What is the chemical symbol for Gold?
+A. Go
+B. Gd
+C. Au
+D. Ag
+Answer: C
+Domain: Chemistry
+Difficulty: Easy
+
+5. Who wrote Romeo and Juliet?
+A. Mark Twain
+B. William Shakespeare
+C. Jane Austen
+D. Charles Dickens
+Answer: B
+Domain: Literature
+Difficulty: Easy
+
+6. What is the largest ocean on Earth?
+A. Atlantic Ocean
+B. Indian Ocean
+C. Arctic Ocean
+D. Pacific Ocean
+Answer: D
+Domain: Geography
+Difficulty: Easy
+
+7. How many continents are there?
+A. 5
+B. 6
+C. 7
+D. 8
+Answer: C
+Domain: Geography
+Difficulty: Easy
+
+8. What is the smallest prime number?
+A. 0
+B. 1
+C. 2
+D. 3
+Answer: C
+Domain: Mathematics
+Difficulty: Easy
+
+9. Which element has the atomic number 1?
+A. Hydrogen
+B. Helium
+C. Lithium
+D. Carbon
+Answer: A
+Domain: Chemistry
+Difficulty: Easy
+
+10. What year did World War II end?
+A. 1943
+B. 1944
+C. 1945
+D. 1946
+Answer: C
+Domain: History
+Difficulty: Easy

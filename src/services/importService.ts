@@ -17,7 +17,7 @@ export interface ImportSummary {
 }
 
 export class ImportService {
-  private static readonly BATCH_SIZE = 50;
+  private static readonly BATCH_SIZE = 1000; // Allow unlimited - process 1000 at a time
 
   /**
    * Complete import workflow
