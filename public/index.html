@@ -574,7 +574,8 @@
     }
 
     async function deleteQuestion(id) {
-      if (!confirm(`Delete question #${id}?`)) {
+      const password = prompt('Enter admin password to delete:');
+      if (!password) {
         return;
       }
 
@@ -582,14 +583,16 @@
         const response = await fetch(`/api/questions/${id}`, {
           method: 'DELETE',
           headers: {
-            'Authorization': 'Basic ' + btoa('admin:SecurePass123!')
+            'Authorization': 'Basic ' + btoa('admin:' + password)
           }
         });
 
         const data = await response.json();
 
-        if (data.success) {
-          alert('Question deleted successfully!');
+        if (response.status === 401) {
+          alert('❌ Incorrect password');
+        } else if (data.success) {
+          alert('✓ Question deleted successfully!');
           loadQuestions();
           loadStats();
         } else {
