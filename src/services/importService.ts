@@ -129,7 +129,7 @@ export class ImportService {
             continue;
           }
 
-          // Normalize and check duplicates
+          // Normalize and check duplicates (identify but don't skip)
           const normalized = NormalizationService.normalize(question || '');
           const duplicate = await DuplicateDetectionService.isDuplicate(
             question || ''
@@ -140,7 +140,7 @@ export class ImportService {
             duplicateReasons.push(
               `Row ${i + 1}: "${question}" (matched ID: ${duplicate.matchedQuestionId})`
             );
-            continue;
+            // Continue to store anyway - don't skip
           }
 
           // Add to batch
