@@ -16,8 +16,13 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors({ origin: process.env.CORS_ORIGIN || '*' }));
 
-// Static files
+// Static files (serve frontend)
 app.use(express.static('public'));
+
+// Serve React frontend for root path
+app.get('/', (req: Request, res: Response) => {
+  res.sendFile(__dirname + '/../public/index.html');
+});
 
 // Validate admin credentials are set
 const adminUsername = process.env.ADMIN_USERNAME;
@@ -62,9 +67,13 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-// 404 handler
-app.use((req: Request, res: Response) => {
-  res.status(404).json({ error: 'Not Found' });
+// Serve frontend for all non-API routes (React Router support)
+app.get('*', (req: Request, res: Response) => {
+  if (!req.path.startsWith('/api')) {
+    res.sendFile(__dirname + '/../public/index.html');
+  } else {
+    res.status(404).json({ error: 'API endpoint not found' });
+  }
 });
 
 // Start server

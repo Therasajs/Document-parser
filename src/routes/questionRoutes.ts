@@ -28,7 +28,7 @@ const adminAuth = basicAuth({
  * GET /api/questions
  * Get all questions
  */
-router.get('/', async (req: Request, res: Response) => {
+router.get('/', async (req: Request, res: Response): Promise<void> => {
   try {
     const limit = parseInt(req.query.limit as string) || 100;
     const offset = parseInt(req.query.offset as string) || 0;
@@ -50,13 +50,14 @@ router.get('/', async (req: Request, res: Response) => {
  * GET /api/questions/:id
  * Get single question
  */
-router.get('/:id', async (req: Request, res: Response) => {
+router.get('/:id', async (req: Request, res: Response): Promise<void> => {
   try {
     const id = parseInt(req.params.id);
     const question = await QuestionService.getQuestionById(id);
 
     if (!question) {
-      return res.status(404).json({ error: 'Question not found' });
+      res.status(404).json({ error: 'Question not found' });
+      return;
     }
 
     res.json({ success: true, data: question });
@@ -130,13 +131,14 @@ router.get('/stats/all', async (req: Request, res: Response) => {
  * DELETE /api/questions/:id
  * Delete question (admin only)
  */
-router.delete('/:id', adminAuth, async (req: Request, res: Response) => {
+router.delete('/:id', adminAuth, async (req: Request, res: Response): Promise<void> => {
   try {
     const id = parseInt(req.params.id);
     const deleted = await QuestionService.deleteQuestion(id);
 
     if (!deleted) {
-      return res.status(404).json({ error: 'Question not found' });
+      res.status(404).json({ error: 'Question not found' });
+      return;
     }
 
     res.json({ success: true, message: 'Question deleted' });

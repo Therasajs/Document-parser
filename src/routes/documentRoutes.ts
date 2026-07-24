@@ -13,10 +13,11 @@ const upload = multer({ storage: multer.memoryStorage() });
 router.post(
   '/upload',
   upload.single('file'),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     try {
       if (!req.file) {
-        return res.status(400).json({ error: 'No file provided' });
+        res.status(400).json({ error: 'No file provided' });
+        return;
       }
 
       const { originalname, buffer } = req.file;
@@ -45,10 +46,11 @@ router.post(
 router.post(
   '/preview',
   upload.single('file'),
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response): Promise<void> => {
     try {
       if (!req.file) {
-        return res.status(400).json({ error: 'No file provided' });
+        res.status(400).json({ error: 'No file provided' });
+        return;
       }
 
       const { originalname, buffer } = req.file;
