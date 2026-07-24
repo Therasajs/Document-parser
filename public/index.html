@@ -347,30 +347,6 @@
     .btn-delete:active {
       transform: translateY(1px);
     }
-
-    .btn-delete-all {
-      background: var(--error);
-      color: white;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      width: auto;
-      transition: all 0.2s;
-    }
-
-    .btn-delete-all:hover {
-      background: #dc2626;
-      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
-    }
-
-    .delete-button-container {
-      margin-bottom: 20px;
-      display: flex;
-      gap: 10px;
-    }
   </style>
 </head>
 <body>
@@ -421,11 +397,6 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <!-- Delete All Button -->
-    <div class="delete-button-container">
-      <button type="button" class="btn-delete-all" onclick="deleteAllQuestions()">🗑️ Delete All Questions</button>
     </div>
 
     <!-- Summary Stats -->
@@ -560,6 +531,7 @@
             <th>Difficulty</th>
             <th>Answer</th>
             <th>Options</th>
+            <th>Action</th>
           </tr></thead><tbody>`;
 
           data.data.forEach(q => {
@@ -570,6 +542,7 @@
               <td><span class="badge badge-difficulty">${escapeHtml(q.difficulty || 'N/A')}</span></td>
               <td><strong>${escapeHtml(q.correct_answer || '-')}</strong></td>
               <td>${escapeHtml(q.option_a || '')} | ${escapeHtml(q.option_b || '')} | ${escapeHtml(q.option_c || '')} | ${escapeHtml(q.option_d || '')}</td>
+              <td><button class="btn-delete" onclick="deleteQuestion(${q.id})">Delete</button></td>
             </tr>`;
           });
 
@@ -600,22 +573,14 @@
       document.querySelector('.table-container').scrollIntoView({ behavior: 'smooth' });
     }
 
-    async function deleteAllQuestions() {
-      if (!confirm('⚠️ This will DELETE ALL questions from the database. Are you sure?')) {
-        return;
-      }
-
-      if (!confirm('🔴 FINAL WARNING: This action cannot be undone. Delete all questions?')) {
-        return;
-      }
-
-      const password = prompt('Enter admin password to confirm deletion:');
+    async function deleteQuestion(id) {
+      const password = prompt('Enter admin password to delete:');
       if (!password) {
         return;
       }
 
       try {
-        const response = await fetch('/api/questions', {
+        const response = await fetch(`/api/questions/${id}`, {
           method: 'DELETE',
           headers: {
             'Authorization': 'Basic ' + btoa('admin:' + password)
@@ -627,7 +592,7 @@
         if (response.status === 401) {
           alert('❌ Incorrect password');
         } else if (data.success) {
-          alert('✓ All questions deleted successfully!');
+          alert('✓ Question deleted successfully!');
           loadQuestions();
           loadStats();
         } else {
