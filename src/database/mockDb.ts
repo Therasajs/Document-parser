@@ -47,32 +47,47 @@ class MockDB {
       return { rows: question ? [question] : [] };
     }
     if (sql.includes('INSERT INTO question_bank')) {
-      const question: Question = {
-        id: this.db.nextId++,
-        question: params?.[0],
-        question_normalized: params?.[1],
-        option_a: params?.[2],
-        option_b: params?.[3],
-        option_c: params?.[4],
-        option_d: params?.[5],
-        correct_answer: params?.[6],
-        domain: params?.[7],
-        difficulty: params?.[8],
-        explanation: params?.[9],
-        created_at: new Date(),
-        updated_at: new Date()
-      };
-      this.db.questions.push(question);
-      return { rows: [question], rowCount: 1 };
+      const fieldsPerRow = 10;
+      const rowCount = (params?.length || 0) / fieldsPerRow;
+      let insertedCount = 0;
+
+      for (let i = 0; i < rowCount; i++) {
+        const offset = i * fieldsPerRow;
+        const question: Question = {
+          id: this.db.nextId++,
+          question: params?.[offset],
+          question_normalized: params?.[offset + 1],
+          option_a: params?.[offset + 2],
+          option_b: params?.[offset + 3],
+          option_c: params?.[offset + 4],
+          option_d: params?.[offset + 5],
+          correct_answer: params?.[offset + 6],
+          domain: params?.[offset + 7],
+          difficulty: params?.[offset + 8],
+          explanation: params?.[offset + 9],
+          created_at: new Date(),
+          updated_at: new Date()
+        };
+        this.db.questions.push(question);
+        insertedCount++;
+      }
+      return { rows: [], rowCount: insertedCount };
     }
     if (sql.includes('DELETE FROM question_bank')) {
-      const id = params?.[0];
-      const index = this.db.questions.findIndex((q) => q.id === id);
-      if (index > -1) {
-        this.db.questions.splice(index, 1);
-        return { rowCount: 1 };
+      if (sql.includes('WHERE id')) {
+        const id = params?.[0];
+        const index = this.db.questions.findIndex((q) => q.id === id);
+        if (index > -1) {
+          this.db.questions.splice(index, 1);
+          return { rowCount: 1 };
+        }
+        return { rowCount: 0 };
+      } else {
+        const count = this.db.questions.length;
+        this.db.questions = [];
+        this.db.nextId = 1;
+        return { rowCount: count };
       }
-      return { rowCount: 0 };
     }
     if (sql.includes('LOWER(domain)')) {
       const domain = params?.[0];

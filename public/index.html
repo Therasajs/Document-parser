@@ -10,202 +10,411 @@
       padding: 0;
       box-sizing: border-box;
     }
+
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1e40af;
+      --success: #10b981;
+      --error: #ef4444;
+      --warning: #f59e0b;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+    }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: var(--gray-50);
+      color: var(--gray-900);
+      line-height: 1.6;
     }
-    .container {
+
+    .header {
       background: white;
-      border-radius: 12px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      max-width: 600px;
-      width: 100%;
-      padding: 40px;
+      border-bottom: 1px solid var(--gray-200);
+      padding: 24px 0;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     }
-    h1 {
-      color: #333;
-      margin-bottom: 10px;
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .header h1 {
       font-size: 28px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 4px;
     }
-    .subtitle {
-      color: #666;
-      margin-bottom: 30px;
+
+    .header p {
       font-size: 14px;
+      color: var(--gray-500);
     }
-    .upload-area {
-      border: 2px dashed #667eea;
-      border-radius: 8px;
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
       padding: 40px 20px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s;
-      background: #f8f9ff;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 1024px) {
+      .main-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      border: 1px solid var(--gray-200);
+      padding: 24px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .card h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--gray-900);
       margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
-    .upload-area:hover {
-      border-color: #764ba2;
-      background: #f0f1ff;
+
+    .form-group {
+      margin-bottom: 16px;
     }
-    .upload-icon {
-      font-size: 48px;
-      margin-bottom: 15px;
-    }
-    .upload-text {
-      color: #333;
+
+    label {
+      display: block;
+      font-size: 14px;
       font-weight: 500;
-      margin-bottom: 5px;
+      color: var(--gray-700);
+      margin-bottom: 8px;
     }
-    .upload-hint {
-      color: #999;
-      font-size: 12px;
-    }
+
     input[type="file"] {
-      display: none;
-    }
-    .button {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      border: none;
-      padding: 12px 24px;
+      display: block;
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--gray-300);
       border-radius: 6px;
+      font-size: 14px;
       cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    input[type="file"]:hover {
+      border-color: var(--primary);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
       font-size: 14px;
       font-weight: 600;
-      width: 100%;
-      transition: transform 0.2s;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
     }
-    .button:hover {
-      transform: translateY(-2px);
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
     }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary:disabled {
+      background: var(--gray-300);
+      cursor: not-allowed;
+    }
+
     .status {
-      margin-top: 20px;
-      padding: 15px;
+      margin-top: 16px;
+      padding: 12px 16px;
       border-radius: 6px;
+      font-size: 14px;
       display: none;
+      border-left: 4px solid;
     }
+
     .status.show {
       display: block;
     }
+
     .status.success {
-      background: #d4edda;
-      color: #155724;
-      border: 1px solid #c3e6cb;
+      background: #d1fae5;
+      color: #065f46;
+      border-left-color: var(--success);
     }
+
     .status.error {
-      background: #f8d7da;
-      color: #721c24;
-      border: 1px solid #f5c6cb;
+      background: #fee2e2;
+      color: #991b1b;
+      border-left-color: var(--error);
     }
+
     .status.loading {
-      background: #d1ecf1;
-      color: #0c5460;
-      border: 1px solid #bee5eb;
+      background: #dbeafe;
+      color: #0c2d6b;
+      border-left-color: var(--primary);
     }
-    .questions-section {
-      margin-top: 40px;
-      border-top: 1px solid #eee;
-      padding-top: 30px;
-    }
-    .questions-section h2 {
-      font-size: 18px;
-      color: #333;
-      margin-bottom: 20px;
-    }
-    .question-item {
-      background: #f8f9fa;
-      border-left: 4px solid #667eea;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-radius: 4px;
-    }
-    .question-item-text {
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 10px;
-    }
-    .question-item-domain {
-      display: inline-block;
-      background: #667eea;
-      color: white;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-      margin-right: 8px;
-    }
-    .question-item-difficulty {
-      display: inline-block;
-      background: #764ba2;
-      color: white;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-    }
-    .stats {
+
+    .stats-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      margin-top: 20px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
     }
-    .stat-box {
-      background: #f8f9fa;
-      padding: 15px;
-      border-radius: 6px;
+
+    @media (max-width: 768px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .stat-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 20px;
       text-align: center;
     }
+
     .stat-value {
-      font-size: 24px;
+      font-size: 32px;
       font-weight: 700;
-      color: #667eea;
+      color: var(--primary);
+      margin-bottom: 4px;
     }
+
     .stat-label {
+      font-size: 13px;
+      color: var(--gray-500);
+      font-weight: 500;
+    }
+
+    .table-container {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .table-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--gray-200);
+      background: var(--gray-50);
+    }
+
+    .table-header h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gray-900);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table th {
+      background: var(--gray-50);
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--gray-700);
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--gray-100);
+      font-size: 14px;
+      color: var(--gray-600);
+    }
+
+    table tbody tr:hover {
+      background: var(--gray-50);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
       font-size: 12px;
-      color: #666;
-      margin-top: 5px;
+      font-weight: 600;
+    }
+
+    .badge-domain {
+      background: #dbeafe;
+      color: #0c2d6b;
+    }
+
+    .badge-difficulty {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .no-data {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--gray-500);
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 20px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .page-btn {
+      padding: 6px 12px;
+      border: 1px solid var(--gray-300);
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+
+    .page-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .page-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .cell-truncate {
+      max-width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>📄 Document Import Engine</h1>
-    <p class="subtitle">Upload questions from multiple file formats</p>
+  <div class="header">
+    <div class="header-content">
+      <h1>📄 Document Import Engine</h1>
+      <p>Professional Question Management & Data Import System</p>
+    </div>
+  </div>
 
-    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-      <div class="upload-icon">📁</div>
-      <div class="upload-text">Click to upload or drag and drop</div>
-      <div class="upload-hint">Supported: JSON, CSV, XLSX, PDF, DOCX, XML, TXT, TSV</div>
-      <input type="file" id="fileInput" onchange="handleFileUpload(event)">
+  <div class="container">
+    <div class="main-grid">
+      <!-- Upload Section -->
+      <div class="card">
+        <h2>📤 Upload & Import</h2>
+        <form id="uploadForm" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="fileInput">Select File</label>
+            <input type="file" id="fileInput" required>
+            <small style="color: var(--gray-500); display: block; margin-top: 8px;">
+              Supported: JSON, CSV, XLSX, PDF, DOCX, XML, TXT, TSV
+            </small>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Upload & Import</button>
+        </form>
+        <div class="status" id="status"></div>
+      </div>
+
+      <!-- Statistics Section -->
+      <div class="card">
+        <h2>📊 Import Statistics</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div>
+            <div style="font-size: 24px; font-weight: 700; color: var(--primary);" id="lastSaved">0</div>
+            <div style="font-size: 12px; color: var(--gray-500);">Last Imported</div>
+          </div>
+          <div>
+            <div style="font-size: 24px; font-weight: 700; color: var(--warning);" id="lastDuplicates">0</div>
+            <div style="font-size: 12px; color: var(--gray-500);">Last Duplicates</div>
+          </div>
+          <div>
+            <div style="font-size: 24px; font-weight: 700; color: var(--error);" id="lastFailed">0</div>
+            <div style="font-size: 12px; color: var(--gray-500);">Last Failed</div>
+          </div>
+          <div>
+            <div style="font-size: 24px; font-weight: 700; color: var(--success);" id="importTime">-</div>
+            <div style="font-size: 12px; color: var(--gray-500);">Import Time (ms)</div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <button type="button" class="button" onclick="document.getElementById('fileInput').click()">
-      Choose File
-    </button>
-
-    <div class="status" id="status"></div>
-
-    <div class="stats">
-      <div class="stat-box">
+    <!-- Summary Stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
         <div class="stat-value" id="totalQuestions">0</div>
         <div class="stat-label">Total Questions</div>
       </div>
-      <div class="stat-box">
-        <div class="stat-value" id="lastImport">-</div>
-        <div class="stat-label">Status</div>
+      <div class="stat-card">
+        <div class="stat-value" id="totalDomains">0</div>
+        <div class="stat-label">Domains</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="totalDifficulties">0</div>
+        <div class="stat-label">Difficulty Levels</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" id="lastImportTime">-</div>
+        <div class="stat-label">Last Import</div>
       </div>
     </div>
 
-    <div class="questions-section">
-      <h2>📋 Recent Questions</h2>
-      <div id="questionsList"></div>
+    <!-- Questions Table -->
+    <div class="table-container">
+      <div class="table-header">
+        <h3>Questions Database</h3>
+      </div>
+      <div id="questionsTable"></div>
     </div>
   </div>
 
   <script>
-    window.addEventListener('load', loadQuestions);
+    let currentPage = 1;
+    const itemsPerPage = 20;
+
+    window.addEventListener('load', () => {
+      loadQuestions();
+      loadStats();
+    });
 
     function escapeHtml(s) {
       return String(s).replace(/[&<>"']/g, c => ({
@@ -217,13 +426,14 @@
       }[c]));
     }
 
-    async function handleFileUpload(event) {
-      const file = event.target.files[0];
+    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const file = document.getElementById('fileInput').files[0];
       if (!file) return;
 
       const statusDiv = document.getElementById('status');
       statusDiv.className = 'status show loading';
-      statusDiv.textContent = 'Uploading...';
+      statusDiv.textContent = '⏳ Uploading...';
 
       const formData = new FormData();
       formData.append('file', file);
@@ -236,68 +446,109 @@
 
         const data = await response.json();
 
-        if (data.success) {
+        if (data.success || data.savedRecords !== undefined) {
           statusDiv.className = 'status show success';
-          statusDiv.textContent = 'Success! Saved: ' + data.savedRecords + ' | Duplicates: ' + data.duplicateRecords;
+          statusDiv.innerHTML = `✓ Success! Saved: <strong>${data.savedRecords}</strong> | Duplicates: <strong>${data.duplicateRecords}</strong> | Failed: <strong>${data.failedRecords}</strong> | Time: <strong>${data.processingTimeMs}ms</strong>`;
+
+          document.getElementById('lastSaved').textContent = data.savedRecords;
+          document.getElementById('lastDuplicates').textContent = data.duplicateRecords;
+          document.getElementById('lastFailed').textContent = data.failedRecords;
+          document.getElementById('importTime').textContent = data.processingTimeMs;
+
           setTimeout(() => {
             loadQuestions();
-            event.target.value = '';
+            loadStats();
+            document.getElementById('fileInput').value = '';
+            currentPage = 1;
           }, 1500);
         } else {
           statusDiv.className = 'status show error';
-          statusDiv.textContent = 'Error: ' + (data.error || 'Upload failed');
+          statusDiv.textContent = '✗ Error: ' + (data.error || 'Upload failed');
         }
       } catch (error) {
         statusDiv.className = 'status show error';
-        statusDiv.textContent = 'Error: ' + error.message;
+        statusDiv.textContent = '✗ Error: ' + error.message;
+      }
+    });
+
+    async function loadStats() {
+      try {
+        const response = await fetch('/api/questions/stats/all');
+        const data = await response.json();
+
+        if (data.success && data.data) {
+          document.getElementById('totalQuestions').textContent = data.data.total_questions || 0;
+          document.getElementById('totalDomains').textContent = data.data.total_domains || 0;
+          document.getElementById('totalDifficulties').textContent = data.data.total_difficulties || 0;
+
+          if (data.data.last_import) {
+            const date = new Date(data.data.last_import);
+            document.getElementById('lastImportTime').textContent = date.toLocaleDateString();
+          }
+        }
+      } catch (error) {
+        console.error('Error loading stats:', error);
       }
     }
 
     async function loadQuestions() {
       try {
-        const response = await fetch('/api/questions');
+        const offset = (currentPage - 1) * itemsPerPage;
+        const response = await fetch(`/api/questions?limit=${itemsPerPage}&offset=${offset}`);
         const data = await response.json();
 
-        document.getElementById('totalQuestions').textContent = data.total || 0;
+        const tableDiv = document.getElementById('questionsTable');
 
-        const questionsList = document.getElementById('questionsList');
         if (data.data && data.data.length > 0) {
-          questionsList.innerHTML = data.data.slice(0, 3).map(q => {
-            return '<div class="question-item"><div class="question-item-text">' +
-                   escapeHtml(q.question) +
-                   '</div><span class="question-item-domain">' +
-                   escapeHtml(q.domain || 'N/A') +
-                   '</span><span class="question-item-difficulty">' +
-                   escapeHtml(q.difficulty || 'N/A') +
-                   '</span></div>';
-          }).join('');
+          const total = data.total || 0;
+          const totalPages = Math.ceil(total / itemsPerPage);
+
+          let html = `<table><thead><tr>
+            <th>ID</th>
+            <th>Question</th>
+            <th>Domain</th>
+            <th>Difficulty</th>
+            <th>Answer</th>
+            <th>Options</th>
+          </tr></thead><tbody>`;
+
+          data.data.forEach(q => {
+            html += `<tr>
+              <td>${escapeHtml(String(q.id))}</td>
+              <td><div class="cell-truncate">${escapeHtml(q.question)}</div></td>
+              <td><span class="badge badge-domain">${escapeHtml(q.domain || 'N/A')}</span></td>
+              <td><span class="badge badge-difficulty">${escapeHtml(q.difficulty || 'N/A')}</span></td>
+              <td><strong>${escapeHtml(q.correct_answer || '-')}</strong></td>
+              <td>${escapeHtml(q.option_a || '')} | ${escapeHtml(q.option_b || '')} | ${escapeHtml(q.option_c || '')} | ${escapeHtml(q.option_d || '')}</td>
+            </tr>`;
+          });
+
+          html += `</tbody></table>`;
+
+          // Add pagination
+          if (totalPages > 1) {
+            html += '<div class="pagination">';
+            for (let i = 1; i <= totalPages; i++) {
+              html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            }
+            html += '</div>';
+          }
+
+          tableDiv.innerHTML = html;
         } else {
-          questionsList.textContent = 'No questions yet. Upload a file!';
-          questionsList.style.color = '#999';
-          questionsList.style.textAlign = 'center';
-          questionsList.style.padding = '20px';
+          tableDiv.innerHTML = '<div class="no-data">📭 No questions yet. Upload a file to get started.</div>';
         }
       } catch (error) {
         console.error('Error:', error);
+        document.getElementById('questionsTable').innerHTML = '<div class="no-data">Error loading questions</div>';
       }
     }
 
-    const uploadArea = document.querySelector('.upload-area');
-    uploadArea.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      uploadArea.style.borderColor = '#764ba2';
-    });
-    uploadArea.addEventListener('dragleave', () => {
-      uploadArea.style.borderColor = '#667eea';
-    });
-    uploadArea.addEventListener('drop', (e) => {
-      e.preventDefault();
-      uploadArea.style.borderColor = '#667eea';
-      if (e.dataTransfer.files[0]) {
-        document.getElementById('fileInput').files = e.dataTransfer.files;
-        handleFileUpload({ target: { files: e.dataTransfer.files } });
-      }
-    });
+    function goToPage(page) {
+      currentPage = page;
+      loadQuestions();
+      document.querySelector('.table-container').scrollIntoView({ behavior: 'smooth' });
+    }
   </script>
 </body>
 </html>
