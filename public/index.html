@@ -531,7 +531,6 @@
             <th>Difficulty</th>
             <th>Answer</th>
             <th>Options</th>
-            <th>Action</th>
           </tr></thead><tbody>`;
 
           data.data.forEach(q => {
@@ -542,7 +541,6 @@
               <td><span class="badge badge-difficulty">${escapeHtml(q.difficulty || 'N/A')}</span></td>
               <td><strong>${escapeHtml(q.correct_answer || '-')}</strong></td>
               <td>${escapeHtml(q.option_a || '')} | ${escapeHtml(q.option_b || '')} | ${escapeHtml(q.option_c || '')} | ${escapeHtml(q.option_d || '')}</td>
-              <td><button class="btn-delete" onclick="deleteQuestion(${q.id})">Delete</button></td>
             </tr>`;
           });
 

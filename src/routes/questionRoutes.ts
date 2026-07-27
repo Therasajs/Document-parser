@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express, { Request, Response } from 'express';
 import basicAuth from 'express-basic-auth';
 import { QuestionService } from '../services/questionService';
